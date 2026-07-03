@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кулинарная книга</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <section id="list-view">
+            <header class="page-header">
+                <h1>Рецепты</h1>
+                <button class="primary-btn" type="button" id="add-recipe-btn">Добавить рецепт</button>
+            </header>
+
+            <div id="list-loading" class="loading">Загрузка...</div>
+            <div id="list-error" class="error hidden"></div>
+
+            <div class="table-wrap hidden" id="recipes-table-wrap">
+                <table id="recipes-table">
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Просмотры</th>
+                            <th>Время приготовления (мин)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recipes-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="form-view" class="hidden">
+            <button class="back-btn" type="button" id="form-back-btn">← К списку рецептов</button>
+
+            <form id="recipe-form" class="recipe-form">
+                <h2>Новый рецепт</h2>
+
+                <label class="form-field">
+                    Название
+                    <input type="text" id="recipe-name-input" name="name" required>
+                </label>
+
+                <label class="form-field">
+                    Время приготовления (мин)
+                    <input type="number" id="recipe-time-input" name="time_minutes" min="1" required>
+                </label>
+
+                <fieldset class="ingredients-fieldset">
+                    <legend>Ингредиенты</legend>
+                    <div id="ingredients-fields"></div>
+                    <button class="secondary-btn" type="button" id="add-ingredient-btn">+ Добавить ингредиент</button>
+                </fieldset>
+
+                <label class="form-field">
+                    Описание
+                    <textarea id="recipe-description-input" name="description" rows="5" required></textarea>
+                </label>
+
+                <div id="form-error" class="error hidden"></div>
+                <button class="primary-btn" type="submit">Сохранить рецепт</button>
+            </form>
+        </section>
+
+        <section id="detail-view" class="hidden">
+            <button class="back-btn" type="button" id="back-btn">← К списку рецептов</button>
+
+            <div id="detail-loading" class="loading">Загрузка...</div>
+            <div id="detail-error" class="error hidden"></div>
+
+            <article id="recipe-card" class="recipe-card hidden">
+                <header class="recipe-card-header">
+                    <h2 id="recipe-name"></h2>
+                    <p class="meta" id="recipe-time"></p>
+                </header>
+
+                <section class="recipe-section">
+                    <h3 class="section-title">Ингредиенты</h3>
+                    <div class="table-wrap">
+                        <table id="recipe-ingredients-table">
+                            <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Количество</th>
+                                    <th>Единица</th>
+                                    <th>Примечание</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recipe-ingredients"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="recipe-section">
+                    <h3 class="section-title">Описание</h3>
+                    <p class="description" id="recipe-description"></p>
+                </section>
+            </article>
+        </section>
+    </div>
+
+    <template id="ingredient-row-template">
+        <div class="ingredient-row">
+            <label class="ingredient-field ingredient-field-full">
+                <span class="field-label">Ингредиент</span>
+                <select class="ingredient-select" required></select>
+                <input type="text" class="ingredient-name-custom hidden" placeholder="Введите название">
+            </label>
+
+            <label class="ingredient-field">
+                <span class="field-label">Количество</span>
+                <input type="number" class="ingredient-amount" min="0" step="0.1" required>
+            </label>
+
+            <label class="ingredient-field">
+                <span class="field-label">Единица</span>
+                <select class="ingredient-unit-select" required></select>
+                <input type="text" class="ingredient-unit-custom hidden" placeholder="Введите единицу">
+            </label>
+
+            <label class="ingredient-field ingredient-field-full">
+                <span class="field-label">Примечание</span>
+                <input type="text" class="ingredient-note" placeholder="Необязательно">
+            </label>
+
+            <button class="remove-ingredient-btn" type="button" title="Удалить">Удалить</button>
+        </div>
+    </template>
+
+    <script src="/static/script.js" defer></script>
+</body>
+</html>
